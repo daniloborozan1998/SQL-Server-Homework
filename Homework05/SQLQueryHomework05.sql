@@ -15,7 +15,9 @@ SELECT S.FirstName AS StudentFirstName, S.LastName AS StudentLastName,G.Grade AS
 FROM [dbo].[Grade] G
 INNER JOIN [dbo].[Student] S ON S.ID = G.StudentID
 INNER JOIN [dbo].[Course] C ON C.ID = G.CourseID
-WHERE G.TeacherID = @TeacherId AND G.CourseID = @CourseId
+INNER JOIN [dbo].[GradeDetails] GD ON G.ID = GD.GradeID
+INNER JOIN [dbo].[AchievementType] A ON A.ID = GD.AchievementTypeID
+WHERE A.Name = 'ispit' and GD.AchievementPoints > 50 and  G.TeacherID = @TeacherId AND G.CourseID = @CourseId
 GROUP BY S.FirstName,S.LastName, G.Grade, G.CreatedDate
 
 
